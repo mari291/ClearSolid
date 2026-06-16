@@ -1,69 +1,37 @@
-(() => {
-
-    interface Product { 
-        id:   number;
-        name: string;
-    }
-    
-    // 1. Clase encargada ÚNICAMENTE de la base de datos (Cargar y Guardar productos)
-    class ProductService {
-        getProduct( id: number ) {
-            console.log('Producto: ',{ id, name: 'OLED Tv' });
-        }
-    
+@@ -17,12 +17,15 @@
         saveProduct( product: Product ) {
+            // Realiza una petición para salvar en base de datos 
             console.log('Guardando en base de datos', product );
-        }
-    }
-
-    // 2. Clase encargada ÚNICAMENTE de las notificaciones por correo
-    class Mailer {
-        sendEmail( emailList: string[], toWhom: 'clients' | 'admins' ) {
-            console.log('Enviando correo a los clientes', toWhom);
-        }
-    }
-    
-    // 3. El Bloc ahora recibe sus dependencias a través del constructor (Inyección de dependencias)
-    class ProductBloc {
-        private productService: ProductService;
-        private mailer: Mailer;
-
-        constructor( productService: ProductService, mailer: Mailer ) {
-            this.productService = productService;
-            this.mailer = mailer;
-        }
-    
-        loadProduct( id: number ) {
-            this.productService.getProduct( id );
-        }
-    
-        saveProduct( product: Product ) {
-            this.productService.saveProduct( product );
         }
     
         notifyClients() {
-            this.mailer.sendEmail(['sofia@correo.com'], 'clients');
+        }   
+    }
+
+    class notificationService {
+
+        sendEmail() {
+            // Realiza una petición para enviar un correo a los clientes
+            console.log('Enviando correo a los clientes');
+        }    
+   
         }
     }
 
-  
     class CartBloc {
-        onAddToCart( productId: number ) {
-            console.log('Agregando al carrito ', productId );
-        }
-    }
-    
-    
-    const productService = new ProductService();
-    const mailer         = new Mailer();
+@@ -35,12 +38,14 @@
 
-    const productBloc = new ProductBloc( productService, mailer );
+    const productBloc = new ProductBloc();
     const cartBloc    = new CartBloc();
+    const notify      = new notificationService();
 
-    // Pruebas
+
     productBloc.loadProduct(10);
     productBloc.saveProduct({ id: 10, name: 'OLED TV' });
     productBloc.notifyClients();
-    cartBloc.onAddToCart(10);
+    // productBloc.notifyClients();
+    // productBloc.onAddToCart(10);
+    cartBloc.AddToCart(10);
+    notify.sendEmail();
 
 })();
