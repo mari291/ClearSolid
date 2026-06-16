@@ -1,66 +1,51 @@
 (() => {
 
-    // función para obtener información de una película por Id
+    // 1. Obtener información de una película por ID
     function getAllMovies( movieId: string ) {
         console.log({ movieId });
-    function getMovieById(id: string) {
+    }
+
+    // 2. Obtener información de los actores de una película por ID
+    function getMovieById( id: string ) {
         console.log({ id });
     }
 
-    // función para obtener información de los actores de una película - Actors o Cast // id = movieId getMovieCast
-    function getAllMovieActors( id: string ) {
-    function getMovieCastById(id: string) {
+    // 3. Obtener la biografía del actor por ID
+    function getActorBioById( id: string ) {
         console.log({ id });
     }
 
-    // funcion para obtener el bio del actor por el id
-    function getUsuario( ActorId: string ) {
-        console.log({ ActorId });
-    function getActorBioById(id: string) {
-        console.log({ id });
-    }
-    
-
-    // Crear una película
-    function movie(title: string, description: string, rating: number, cast: string[] ) {
+    // 4. Crear una película utilizando una interfaz para los argumentos
     interface Movie {
-        title: string;
+        cast:        string[];
         description: string;
-        rating: number;
-        cast: string[];
+        rating:      number;
+        title:       string;
     }
 
-    function createMovie({ title, description, rating, cast }: Movie) {
+    function createMovie({ title, description, rating, cast }: Movie ) {
         console.log({ title, description, rating, cast });
     }
 
-    // Crea un nuevo actor
-    function createActorIfActorNotExists( fullName: string, birthdate: Date ): boolean {
-        
-    function createActor(fullName: string, birthdate: Date): boolean {
-
-        // tarea asincrona para verificar nombre
-        // ..
-        // ..
+    // 5. Crear un nuevo actor si no existe
+    function checkFullName( fullName: string ): boolean {
         if ( fullName === 'fernando' ) return false;
-        if (fullName === 'fernando') return false;
-
-        console.log('Crear actor');
-        return true;        
         return true;
-
     }
 
-    const getPayAmount = ({ isDead = false, isSeparated = true, isRetired = false }): number => {
-        if (isDead) return 1500;
-        if (isSeparated) return 2500;
+    function createActor( fullName: string, birthdate: Date ): boolean {
+        if ( !checkFullName(fullName) ) return false;
+
+        console.log('Crear actor', birthdate);
+        return true;
+    }
+
+    // 6. Calcular el monto a pagar (Uso de retornos tempranos)
+    const getPayAmount = ({ isDead = false, isSeparated = true, isRetired = false }) => {
+        if ( isDead ) return 1500;
+        if ( isSeparated ) return 2500;
+        
         return isRetired ? 3000 : 4000;
     }
 
-    
-
-}
-
-
 })();
-)();
